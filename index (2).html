@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amrutha K — Data & Business Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page-bg:#070B14;
+    --panel:#101828;
+    --panel-2:#141E30;
+    --border:#232E45;
+    --border-soft:rgba(93,202,165,0.18);
+    --text:#F5F6F3;
+    --text-dim:#98A2B3;
+    --text-faint:#556074;
+    --teal:#5DCAA5;
+    --teal-strong:#1D9E75;
+    --teal-glow:rgba(93,202,165,0.16);
+    --red:#E8635C;
+    --mono:'JetBrains Mono', monospace;
+    --sans:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--page-bg); color:var(--text); font-family:var(--sans); line-height:1.6; overflow-x:hidden; position:relative;}
+  a{color:inherit; text-decoration:none;}
+
+  .glow{position:fixed; border-radius:50%; filter:blur(90px); z-index:0; pointer-events:none;}
+  .glow-1{width:520px; height:520px; background:radial-gradient(circle, rgba(93,202,165,0.16), transparent 70%); top:-120px; right:-160px;}
+  .glow-2{width:460px; height:460px; background:radial-gradient(circle, rgba(232,99,92,0.10), transparent 70%); bottom:10%; left:-160px;}
+  .glow-3{width:400px; height:400px; background:radial-gradient(circle, rgba(93,202,165,0.10), transparent 70%); top:55%; right:5%;}
+
+  .page{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 28px;}
+
+  nav{position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(7,11,20,0.7); backdrop-filter:blur(14px); border-bottom:1px solid var(--border);}
+  nav .page{display:flex; justify-content:space-between; align-items:center; height:64px; max-width:1080px;}
+  .logo{font-family:var(--mono); font-size:14px; color:var(--teal); letter-spacing:0.03em;}
+  .navlinks{display:flex; gap:30px;}
+  .navlinks a{font-size:14px; color:var(--text-dim); transition:color 0.2s;}
+  .navlinks a:hover{color:var(--text);}
+  @media (max-width:640px){ .navlinks{display:none;} }
+
+  /* HERO */
+  .hero{min-height:100vh; display:flex; align-items:center; padding-top:80px;}
+  .hero-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:center; width:100%;}
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; text-align:center;} }
+
+  .photo-wrap{position:relative; width:280px; margin:0 auto;}
+  @media (min-width:861px){ .photo-wrap{margin:0;} }
+  .photo-ring{
+    position:absolute; inset:-14px; border-radius:28px;
+    background:linear-gradient(135deg, rgba(93,202,165,0.55), transparent 45%, transparent 65%, rgba(232,99,92,0.4));
+    filter:blur(2px);
+  }
+  .photo-frame{
+    position:relative; border-radius:24px; overflow:hidden; border:1px solid var(--border);
+    box-shadow:0 24px 60px -20px rgba(0,0,0,0.7);
+  }
+  .photo-frame img{width:100%; display:block;}
+  .photo-tag{
+    position:absolute; bottom:14px; left:14px; right:14px;
+    background:rgba(7,11,20,0.75); backdrop-filter:blur(6px);
+    border:1px solid var(--border-soft); border-radius:10px; padding:9px 12px;
+    font-family:var(--mono); font-size:11px; color:var(--teal); letter-spacing:0.04em;
+  }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12px; color:var(--teal);
+    letter-spacing:0.06em; margin-bottom:22px;
+    background:rgba(93,202,165,0.08); border:1px solid var(--border-soft);
+    padding:6px 12px; border-radius:20px;
+  }
+  @media (max-width:860px){ .eyebrow{margin-left:auto; margin-right:auto;} }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal);}
+
+  h1.headline{font-size:clamp(30px, 3.6vw, 46px); font-weight:800; line-height:1.15; color:var(--text); max-width:560px; letter-spacing:-0.01em;}
+  @media (max-width:860px){ h1.headline{max-width:none;} }
+  h1.headline .accent{color:var(--teal);}
+  .hero-sub{margin-top:20px; font-size:16px; color:var(--text-dim); max-width:460px;}
+  @media (max-width:860px){ .hero-sub{margin:20px auto 0; max-width:460px;} }
+  .hero-name{font-size:14px; color:var(--text-faint); font-family:var(--mono); margin-bottom:10px;}
+  .hero-cta{margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;}
+  @media (max-width:860px){ .hero-cta{justify-content:center;} }
+
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:10px; font-size:14px; font-weight:600; transition:all 0.25s cubic-bezier(.2,.8,.2,1); cursor:pointer; border:1px solid transparent;}
+  .btn-primary{background:var(--teal); color:#04241C; box-shadow:0 0 0 1px rgba(93,202,165,0.3), 0 8px 24px -6px rgba(93,202,165,0.45);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 0 0 1px rgba(93,202,165,0.5), 0 14px 30px -6px rgba(93,202,165,0.55);}
+  .btn-ghost{border-color:var(--border); color:var(--text); background:rgba(255,255,255,0.02);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-2px);}
+  .btn-sm{padding:10px 18px; font-size:13px;}
+
+  .panel{background:linear-gradient(180deg, var(--panel), var(--panel-2)); border:1px solid var(--border); border-radius:18px; box-shadow:0 20px 50px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03); position:relative;}
+
+  section{padding:70px 0;}
+  .section-label{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:12px; color:var(--teal); letter-spacing:0.08em; margin-bottom:18px;}
+  .section-label::before{content:''; width:16px; height:1px; background:var(--teal);}
+  h2.section-title{font-size:clamp(24px, 2.6vw, 32px); font-weight:800; margin-bottom:30px; max-width:640px; letter-spacing:-0.01em;}
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  .section-panel{padding:52px 48px;}
+  @media (max-width:640px){ .section-panel{padding:36px 24px;} }
+
+  .about-body{max-width:700px; font-size:16px; color:var(--text-dim); display:flex; flex-direction:column; gap:18px;}
+  .about-body strong{color:var(--text); font-weight:600;}
+  .credentials{margin-top:32px; display:flex; gap:14px; flex-wrap:wrap;}
+  .cred{font-size:13px; color:var(--text-faint); background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:10px; padding:12px 16px;}
+  .cred b{display:block; color:var(--text); font-size:14px; margin-bottom:2px;}
+
+  /* PROJECTS */
+  .project-tag{font-family:var(--mono); font-size:11px; color:var(--text-faint); letter-spacing:0.05em; margin-bottom:8px;}
+  .project-block{margin-bottom:64px;}
+  .project-block:last-child{margin-bottom:0;}
+  .project-title{font-size:clamp(20px, 2.2vw, 26px); font-weight:700; margin-bottom:14px;}
+  .project-intro{max-width:680px; color:var(--text-dim); font-size:15px; margin-bottom:28px;}
+
+  .finding-callout{background:rgba(232,99,92,0.05); border:1px solid rgba(232,99,92,0.25); border-radius:14px; padding:24px 26px; margin-bottom:32px; position:relative; overflow:hidden;}
+  .finding-callout.teal{background:rgba(93,202,165,0.05); border-color:rgba(93,202,165,0.3);}
+  .finding-callout::before{content:''; position:absolute; top:-40%; right:-10%; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(232,99,92,0.18), transparent 70%); pointer-events:none;}
+  .finding-callout.teal::before{background:radial-gradient(circle, rgba(93,202,165,0.18), transparent 70%);}
+  .finding-callout p{font-size:15px; color:var(--text); position:relative;}
+  .finding-callout .stats{display:flex; gap:36px; margin-top:18px; flex-wrap:wrap; position:relative;}
+  .stat b{display:block; font-family:var(--mono); font-size:26px; font-weight:600;}
+  .stat.good b{color:var(--teal);} .stat.bad b{color:var(--red);}
+  .stat span{font-size:12px; color:var(--text-faint);}
+
+  .findings-list{list-style:none; display:flex; flex-direction:column; gap:14px; margin-bottom:32px;}
+  .findings-list li{padding-left:24px; position:relative; color:var(--text-dim); font-size:14px;}
+  .findings-list li::before{content:"▸"; position:absolute; left:0; color:var(--teal); font-weight:700;}
+
+  .interactive-card{
+    background:var(--panel); border:1px solid var(--border); border-radius:14px;
+    padding:22px 24px; margin-bottom:32px; position:relative;
+  }
+  .interactive-card::before{
+    content:''; position:absolute; inset:-1px; border-radius:14px; padding:1px;
+    background:linear-gradient(135deg, rgba(93,202,165,0.4), transparent 40%, transparent 70%, rgba(232,99,92,0.25));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none;
+  }
+  .interactive-label{
+    font-family:var(--mono); font-size:11px; color:var(--teal); letter-spacing:0.06em; margin-bottom:16px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .interactive-label::before{content:'◂▸'; opacity:0.7;}
+  .slider-label-row{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:12px; color:var(--text-dim); letter-spacing:0.05em; margin-bottom:12px;}
+  #discount-val, #lt-val{color:var(--text); font-weight:600;}
+  .interactive-card input[type=range]{width:100%; -webkit-appearance:none; height:5px; border-radius:3px; background:linear-gradient(to right, var(--teal-strong) 0%, var(--red) 100%); outline:none; margin:10px 0 22px;}
+  .interactive-card input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:#fff; border:4px solid var(--panel); cursor:pointer; box-shadow:0 0 0 1px var(--border), 0 0 14px rgba(255,255,255,0.3);}
+  .margin-row{display:flex; justify-content:space-between; align-items:baseline; padding-top:16px; border-top:1px solid var(--border);}
+  .margin-label{font-size:12px; color:var(--text-dim);}
+  .margin-value{font-family:var(--mono); font-size:28px; font-weight:600; color:var(--teal); transition:color 0.3s;}
+  .order-note{margin-top:12px; font-size:11px; color:var(--text-faint); font-family:var(--mono);}
+
+  .built-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:32px;}
+  @media (max-width:640px){ .built-grid{grid-template-columns:1fr;} }
+  .built-item{background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:10px; padding:12px 14px; font-size:13px; color:var(--text-dim); display:flex; align-items:center; gap:10px; transition:border-color 0.2s, background 0.2s;}
+  .built-item:hover{border-color:var(--teal-strong); background:rgba(93,202,165,0.04);}
+  .built-item .dot{width:6px; height:6px; border-radius:50%; background:var(--teal); flex-shrink:0;}
+  .project-links{display:flex; gap:12px; flex-wrap:wrap;}
+  .divider{height:1px; background:var(--border); margin:56px 0; border:none;}
+
+  .skills-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:20px;}
+  @media (max-width:640px){ .skills-grid{grid-template-columns:1fr;} }
+  .skill-card{background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:14px; padding:22px 20px; transition:border-color 0.25s, transform 0.25s, background 0.25s;}
+  .skill-card:hover{border-color:var(--teal-strong); transform:translateY(-4px); background:rgba(93,202,165,0.05);}
+  .skill-cat{font-family:var(--mono); font-size:11px; color:var(--teal); letter-spacing:0.06em; margin-bottom:12px;}
+  .skill-tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{font-size:12px; padding:5px 10px; border-radius:6px; background:rgba(255,255,255,0.03); color:var(--text-dim); border:1px solid var(--border);}
+  .core-strength{margin-top:26px; font-size:14px; color:var(--text-dim); font-style:italic; border-left:2px solid var(--teal-strong); padding-left:14px;}
+
+  .contact-links{display:flex; gap:14px; flex-wrap:wrap; margin-top:28px;}
+  .clink{display:flex; align-items:center; gap:10px; font-size:14px; padding:13px 20px; border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); transition:all 0.25s;}
+  .clink:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-2px); background:rgba(93,202,165,0.05);}
+
+  footer{padding:36px 0 60px; text-align:center; font-size:12px; color:var(--text-faint); font-family:var(--mono);}
+</style>
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
+
+<nav>
+  <div class="page">
+    <div class="logo">amrutha_k</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="page hero-grid">
+    <div class="photo-wrap">
+      <div class="photo-ring"></div>
+      <div class="photo-frame">
+        <img src="images/profile.jpg" alt="Amrutha K">
+        <div class="photo-tag">// currently untangling messy data</div>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow"><span class="dot"></span>AVAILABLE FOR ANALYST ROLES</div>
+      <div class="hero-name">AMRUTHA K</div>
+      <h1 class="headline">I find the number <span class="accent">hiding</span> inside the spreadsheet.</h1>
+      <p class="hero-sub">AI Application Developer turned data analyst. Two real projects, one habit: turning messy data into decisions someone can act on.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="page reveal">
+    <div class="panel section-panel">
+      <div class="section-label">About</div>
+      <h2 class="section-title">From building AI applications to hunting for the pattern in the noise.</h2>
+      <div class="about-body">
+        <p>I'm a data analyst who moved from an MCA into hands-on AI application development, and now back into the work I actually want to be doing — finding the patterns buried in messy data and turning them into decisions someone can act on.</p>
+        <p>I currently work as an <strong>AI Application Developer at VOSSAI.SEED</strong>, building client-facing applications and translating business requirements into working software. That experience taught me something most analysts learn later: a number is only useful if you can explain why it matters to someone who isn't looking at the spreadsheet.</p>
+        <p>I work primarily in <strong>SQL, Power BI, and Python</strong>, with a growing focus on translating raw data into forecasts and requirements a business can act on. I'm seeking opportunities as an <strong>Analyst</strong> where I can apply data-driven thinking to solve real business problems.</p>
+      </div>
+      <div class="credentials">
+        <div class="cred"><b>MCA — 8.43 CGPA</b>APJ Abdul Kalam Technological University</div>
+        <div class="cred"><b>Cisco Data Analytics Essentials</b>Certified</div>
+        <div class="cred"><b>Microsoft Office Specialist</b>Certified</div>
+        <div class="cred"><b>Claude Code 101</b>Anthropic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="page reveal">
+    <div class="panel section-panel">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Two real problems, worked end to end.</h2>
+
+      <!-- PROJECT 1 -->
+      <div class="project-block">
+        <div class="project-tag">// 01 — E-COMMERCE</div>
+        <div class="project-title">What Drives Purchasing Behaviour in E-Commerce</div>
+        <p class="project-intro">A full analysis pipeline — Excel to MySQL to Power BI — built on 9,994 real e-commerce orders, uncovering exactly where a business was quietly losing money.</p>
+
+        <div class="finding-callout">
+          <p>Orders with no discount return a healthy 29.5% profit margin. Push the discount past 40%, and margin collapses to -77.4% — meaning the business loses money on every single one of those 933 orders.</p>
+          <div class="stats">
+            <div class="stat good"><b>+29.5%</b><span>no discount margin</span></div>
+            <div class="stat bad"><b>-77.4%</b><span>40%+ discount margin</span></div>
+            <div class="stat"><b>933</b><span>orders affected</span></div>
+          </div>
+        </div>
+
+        <div class="interactive-card">
+          <div class="interactive-label">
+            <span>TRY IT — DRAG THE DISCOUNT</span>
+          </div>
+          <div class="slider-label-row">
+            <span>DISCOUNT %</span>
+            <span id="discount-val">0%</span>
+          </div>
+          <input type="range" min="0" max="60" value="0" id="discount-slider">
+          <div class="margin-row">
+            <span class="margin-label">TRUE PROFIT MARGIN</span>
+            <span class="margin-value" id="margin-out">29.5%</span>
+          </div>
+          <div class="order-note" id="order-note">based on 4,798 orders with no discount</div>
+        </div>
+
+        <ul class="findings-list">
+          <li>The highest-revenue customer was actually unprofitable — a single 50%-discounted order wiped out his account's margin.</li>
+          <li>Furniture generated strong revenue but delivered the weakest profit margins, driven primarily by two underperforming sub-categories.</li>
+          <li>Nearly 360 customers are either already lost or at risk of leaving, based on RFM segmentation.</li>
+        </ul>
+
+        <div class="built-grid">
+          <div class="built-item"><span class="dot"></span>Excel data preparation</div>
+          <div class="built-item"><span class="dot"></span>MySQL database</div>
+          <div class="built-item"><span class="dot"></span>Seven SQL business analyses</div>
+          <div class="built-item"><span class="dot"></span>Interactive four-page Power BI dashboard</div>
+          <div class="built-item"><span class="dot"></span>Business Insight Report</div>
+          <div class="built-item"><span class="dot"></span>BRD — discount approval workflow</div>
+        </div>
+
+        <div class="project-links">
+          <a href="ecommerce/Dashboard.pdf" class="btn btn-ghost btn-sm">View dashboard PDF</a>
+          <a href="https://github.com/Amrutharavindran/ecommerce-purchasing-behavior-analysis" class="btn btn-ghost btn-sm">View SQL on GitHub</a>
+          <a href="ecommerce/Business_Insight_Report.pdf" class="btn btn-ghost btn-sm">Read the insight report</a>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- PROJECT 2 -->
+      <div class="project-block">
+        <div class="project-tag">// 02 — RETAIL</div>
+        <div class="project-title">Retail Inventory Risk & Demand Forecasting</div>
+        <p class="project-intro">A Python + Power BI analysis of 2 years of daily sales across 5 stores and 20 products — answering two operational questions: which products are about to run out, and how far ahead can demand actually be forecast?</p>
+
+        <div class="finding-callout teal">
+          <p>Nearly half of all store-product combinations are already below their reorder point — and the risk isn't concentrated in one category or region, it's systemic.</p>
+          <div class="stats">
+            <div class="stat bad"><b>47%</b><span>below reorder point</span></div>
+            <div class="stat good"><b>26%</b><span>weekly forecast error</span></div>
+            <div class="stat bad"><b>65%</b><span>daily forecast error</span></div>
+          </div>
+        </div>
+
+        <div class="interactive-card">
+          <div class="interactive-label">
+            <span>TRY IT — DRAG THE LEAD TIME ASSUMPTION</span>
+          </div>
+          <div class="slider-label-row">
+            <span>ASSUMED SUPPLIER LEAD TIME</span>
+            <span id="lt-val">1 day</span>
+          </div>
+          <input type="range" min="1" max="5" value="1" id="lt-slider">
+          <div class="margin-row">
+            <span class="margin-label">CALCULATED REORDER POINT</span>
+            <span class="margin-value" id="rp-out">190 units</span>
+          </div>
+          <div class="order-note" id="lt-note">matches real inventory scale — realistic risk flagged</div>
+        </div>
+
+        <ul class="findings-list">
+          <li>Weekly demand forecasts are far more reliable than daily ones — daily noise cancels out at the weekly level.</li>
+          <li>Discounting has no measurable effect on sales volume here — a deliberate contrast with the e-commerce project, showing discount impact is business-specific, not universal.</li>
+          <li>Holiday and weather effects exist but are too small to act on independently.</li>
+        </ul>
+
+        <div class="built-grid">
+          <div class="built-item"><span class="dot"></span>Python (pandas, statsmodels, scipy) data pipeline</div>
+          <div class="built-item"><span class="dot"></span>Exponential Smoothing demand forecasting</div>
+          <div class="built-item"><span class="dot"></span>Reorder point & safety stock modeling</div>
+          <div class="built-item"><span class="dot"></span>Interactive 3-page Power BI dashboard</div>
+          <div class="built-item"><span class="dot"></span>Hypothesis testing (t-test, correlation)</div>
+          <div class="built-item"><span class="dot"></span>BRD — automated reorder alert system</div>
+        </div>
+
+        <div class="project-links">
+          <a href="retail/Dashboard.pdf" class="btn btn-ghost btn-sm">View dashboard PDF</a>
+          <a href="https://github.com/Amrutharavindran/retail-inventory-demand-forecasting" class="btn btn-ghost btn-sm">View notebook on GitHub</a>
+          <a href="retail/Retail_Insight_Report.pdf" class="btn btn-ghost btn-sm">Read the insight report</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="page reveal">
+    <div class="panel section-panel">
+      <div class="section-label">Skills</div>
+      <h2 class="section-title">The toolkit behind the findings.</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-cat">ANALYSIS</div>
+          <div class="skill-tags">
+            <span class="tag">Advanced SQL</span>
+            <span class="tag">Python (pandas, statsmodels, scipy)</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">DAX</span>
+            <span class="tag">RFM Segmentation</span>
+            <span class="tag">Demand Forecasting</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-cat">TOOLS & PLATFORMS</div>
+          <div class="skill-tags">
+            <span class="tag">MySQL (SQLyog)</span>
+            <span class="tag">Base44</span>
+            <span class="tag">Prompt Engineering</span>
+            <span class="tag">Jupyter Notebook</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-cat">DOCUMENTATION</div>
+          <div class="skill-tags">
+            <span class="tag">Business Requirements Documents</span>
+            <span class="tag">Business Insight Reports</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-cat">CORE STRENGTH</div>
+          <div class="skill-tags">
+            <span class="tag">Requirements → Specs</span>
+            <span class="tag">Stakeholder Communication</span>
+          </div>
+        </div>
+      </div>
+      <p class="core-strength">Translating business requirements into technical specs — and technical findings back into decisions a business can act on.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="page reveal">
+    <div class="panel section-panel">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Let's talk about your data.</h2>
+      <p class="project-intro">Open to Data Analyst and Business Analyst roles.</p>
+      <div class="contact-links">
+        <a href="mailto:amrutha24916@gmail.com" class="clink">amrutha24916@gmail.com</a>
+        <a href="tel:+917306296837" class="clink">+91 73062 96837</a>
+        <a href="https://linkedin.com/in/amrutha-k-ravi" class="clink">LinkedIn</a>
+        <a href="https://github.com/Amrutharavindran" class="clink">GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Amrutha K — built with intent, not templates.</footer>
+
+<script>
+  // Project 1 — discount slider
+  const slider = document.getElementById('discount-slider');
+  const dOut = document.getElementById('discount-val');
+  const mOut = document.getElementById('margin-out');
+  const noteOut = document.getElementById('order-note');
+
+  slider.addEventListener('input', () => {
+    const v = parseInt(slider.value);
+    dOut.textContent = v + '%';
+    let margin, note;
+    if (v <= 0) { margin = 29.5; note = 'based on 4,798 orders with no discount'; }
+    else if (v <= 20) { margin = 11.9; note = 'based on 3,803 orders in the 1-20% band'; }
+    else if (v <= 40) { margin = -15.3; note = 'based on 460 orders in the 21-40% band'; }
+    else { margin = -77.4; note = 'based on 933 orders in the 40%+ band'; }
+    mOut.textContent = margin.toFixed(1) + '%';
+    mOut.style.color = margin >= 0 ? '#5DCAA5' : '#E8635C';
+    noteOut.textContent = note;
+  });
+
+  // Project 2 — lead time assumption slider
+  const ltSlider = document.getElementById('lt-slider');
+  const ltVal = document.getElementById('lt-val');
+  const rpOut = document.getElementById('rp-out');
+  const ltNote = document.getElementById('lt-note');
+
+  // Illustrative model reflecting the notebook's real logic:
+  // Reorder Point = (Avg Daily Demand x Lead Time) + Safety Stock
+  const avgDailyDemand = 140;
+  const safetyStock = 50;
+  const typicalInventoryLevel = 245; // reference line, matches dashboard's observed scale
+
+  ltSlider.addEventListener('input', () => {
+    const lt = parseInt(ltSlider.value);
+    const rp = (avgDailyDemand * lt) + safetyStock;
+    ltVal.textContent = lt + (lt === 1 ? ' day' : ' days');
+    rpOut.textContent = rp.toLocaleString() + ' units';
+    if (rp > typicalInventoryLevel * 1.8) {
+      rpOut.style.color = '#E8635C';
+      ltNote.textContent = 'unrealistic — nearly every product would falsely appear at risk';
+    } else if (rp > typicalInventoryLevel) {
+      rpOut.style.color = '#E8635C';
+      ltNote.textContent = 'too high — inflates risk beyond real inventory scale';
+    } else {
+      rpOut.style.color = '#5DCAA5';
+      ltNote.textContent = 'matches real inventory scale — realistic risk flagged';
+    }
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
